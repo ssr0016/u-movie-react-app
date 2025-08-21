@@ -39,6 +39,36 @@ function HelloWorld(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(firstName, lastName, dob);
+
+    if (lastName !== "") {
+      addPerson(firstName, lastName, dob);
+    }
+  };
+
+  const addPerson = (newFirst, newLast, newDob) => {
+    // create the object
+    let newPerson = {
+      id: crowd.length + 1,
+      firstName: newFirst,
+      lastName: newLast,
+      dob: newDob,
+    };
+
+    const newList = crowd.concat(newPerson);
+
+    const sorted = newList.sort((a, b) => {
+      if (a.lastName < b.lastName) {
+        return -1;
+      } else if (a.lastName > b.lastName) {
+        return 1;
+      }
+      return 0;
+    });
+
+    setCrowd(sorted);
+    setFirstName("");
+    setLastName("");
+    setDob("");
   };
 
   return (
